@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Complaints Dashboard · Kettle & Crate</title>
+<script>
+  (function () {
+    var t = localStorage.getItem("kc-theme");
+    if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  })();
+</script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+<div class="aurora"><span></span><span></span><span></span></div>
+<div class="grain"></div>
+
+<div class="nav">
+  <a class="brand" href="/dashboard"><span class="brand__mark">🫖</span> Kettle &amp; Crate</a>
+  <div class="nav__right">
+    <a class="topbar__staff" href="/" style="padding:0;">View chat ↗</a>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+    <a class="btn btn--ghost" href="/logout">Log out</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Good to see you, Sarah 👋</h1>
+      <p>Here's everything customers have flagged — no more digging through logs.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b id="stat-total" data-value="0">0</b><span>Total</span></div>
+    <div class="stat stat--new"><b id="stat-new" data-value="0">0</b><span>New</span></div>
+    <div class="stat stat--contacted"><b id="stat-contacted" data-value="0">0</b><span>Contacted</span></div>
+    <div class="stat stat--resolved"><b id="stat-resolved" data-value="0">0</b><span>Resolved</span></div>
+  </div>
+
+  <div class="controls">
+    <div class="search">
+      <input id="search" type="text" placeholder="Search by name, email, order #, item...">
+    </div>
+    <div class="pills">
+      <button class="pill active" data-status="all">All</button>
+      <button class="pill" data-status="new">New</button>
+      <button class="pill" data-status="contacted">Contacted</button>
+      <button class="pill" data-status="resolved">Resolved</button>
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/aurora.js') }}"></script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+<script src="{{ url_for('static', filename='js/confetti.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script>initThemeToggle(document.getElementById("theme-toggle"));</script>
+</body>
+</html>

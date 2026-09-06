@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kettle & Crate Support</title>
+<script>
+  (function () {
+    var t = localStorage.getItem("kc-theme");
+    if (t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  })();
+</script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+</head>
+<body>
+<div class="aurora"><span></span><span></span><span></span></div>
+<div class="grain"></div>
+
+<div class="page">
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="brand__mark">🫖</span>
+      Kettle &amp; Crate
+    </a>
+    <div class="topbar__right">
+      <a class="topbar__staff" href="/dashboard">Staff dashboard →</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+
+  {% if missing_key %}
+  <div class="key-banner">
+    <span class="key-banner__icon">🔑</span>
+    <div class="key-banner__text">
+      <strong>API key missing</strong>
+      <span>Add your <code>{{ key_name }}</code> to <code>.env.example</code> to enable the chat.</span>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="rail" id="rail"></div>
+
+  <div class="stage" id="stage">
+    <div class="stage__avatar">🫖<span class="steam"></span><span class="steam steam--2"></span></div>
+    <div class="stage__prompt" id="stage-prompt">Hi, I'm Kettle. Sorry something went wrong — what happened?</div>
+
+    <div class="stage__quick" id="stage-quick">
+      <button class="quick-pill" data-send="My item arrived damaged.">📦 It arrived damaged</button>
+      <button class="quick-pill" data-send="I received the wrong item.">🔀 Wrong item</button>
+      <button class="quick-pill" data-send="Part of my order is missing.">❓ Something's missing</button>
+      <button class="quick-pill" data-send="My order never arrived.">🚚 Never arrived</button>
+      <button class="quick-pill quick-pill--ghost" data-focus="true">✍️ Type it myself</button>
+    </div>
+
+    <div class="stage__form-wrap" id="form-wrap">
+      <form id="form">
+        <input id="input" autocomplete="off" placeholder="Type your answer...">
+        <button id="send" type="submit" aria-label="Send">➤</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="trail" id="trail"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/aurora.js') }}"></script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+<script src="{{ url_for('static', filename='js/confetti.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script>initThemeToggle(document.getElementById("theme-toggle"));</script>
+</body>
+</html>
