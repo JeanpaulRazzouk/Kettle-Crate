@@ -89,10 +89,14 @@ A few backend improvements that don't show up as a visible feature, but matter:
 
 ## How to run it
 
-1. `pip install -r requirements.txt` (or `requirements-dev.txt` to also get the test suite)
-2. **Important: add a real API key before running this, or the chat won't respond.** The app actually reads its settings from `.env.example`, despite the name. That's deliberate: `.env.example` is gitignored and holds the real, working AI provider key on this machine, while `.env` is the file that's committed to git, so its two API key fields are deliberately left blank on purpose, they're not filled in for you. Open `.env.example` and set `ANTHROPIC_API_KEY` (or `OPENAI_API_KEY` if `PROVIDER=openai`) to your own key. The dashboard password is already filled in, since anyone reviewing this needs it to log in.
-3. `python app.py`
-4. Chat lives at `http://localhost:9000`, the dashboard at `http://localhost:9000/dashboard` (password is `kettle-c5d454e1`).
+- Install the dependencies: `pip install -r requirements.txt`
+- Create your private settings file: `cp .env .env.example`
+- Add your key to `.env.example`: set `ANTHROPIC_API_KEY` (or `OPENAI_API_KEY` when using OpenAI).
+- Start the app: `python app.py`
+- Open the chat: `http://localhost:9000`
+- Open the dashboard: `http://localhost:9000/dashboard` (password: `kettle-c5d454e1`)
+
+`.env` is the safe template committed to Git. `.env.example` is the private file the app reads, so it is ignored by Git and never pushed.
 
 To switch models, change `MODEL` in `.env.example` (the file that's actually read) and set `PROVIDER` to `anthropic` or `openai`. If the bot ever stops responding, restarting it fixes it.
 
